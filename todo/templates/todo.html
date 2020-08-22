@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}To Do List{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<main role="main" class="container">
+
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+
+            <div class="jumbotron mt-5 py-4">
+                <h1>Hi {{ user.username }}! Let's get cracking on your to-do list</h1>
+            </div>
+            <div class="row container">
+                <div class="w-100">
+                    <div class="card-body">
+                        <h4>Add New Items to List</h4>
+                        <div class="d-flex">
+                            <input type="text" id="taskText" class="form-control mr-3" placeholder="Description of Task">
+                            <input type="date" id="taskDueDate" class="form-control mr-3" placeholder="Due Date">
+                            <button class="btn btn-primary" onclick="addJob()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card px-3">
+            <div class="card-body">
+                <div class="responsive-table">
+                    <table id="sortable">
+                        <tr class="ui-state-default">
+                            <th>Id</th>
+                            <th>Task</th>
+                            <th>Date Set</th>
+                            <th>Date Due</th>
+                            <th>Completed</th>
+                            <th></th>
+                        </tr>
+
+                        {% for item in to_dos %}
+                        <tr id="rowID{{item.task_id}}">
+                            <td class="taskIDCell" data-id="{{item.task_id}}">{{item.task_id}}</td>
+                            <td>{{item.text}}</td>
+                            <td>{{item.date_created}}</td>
+                            <td>{{item.date_due}}</td>
+                            <td><input class="checkbox" type="checkbox"{% if item.completed %} checked="checked"{% endif %} onclick="toggleCheckBox({{item.task_id}})" id="checkBoxID{{item.task_id}}"></td>
+                            <td><button class="btn btn-danger btn-small" onclick=removeJob({{item.task_id}})>Remove</button> </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'logout' %}" class="btn btn-danger btn-small mt-5 ml-3">logout</a>
+    {% else %}
+    <p>You are not logged in</p>
+    <btn><a href="{% url 'login' %}" class="btn btn-success btn-small mt-5 ml-3">login</a></btn>
+    {% endif %}
+
+    <h3 class="mt-5">Stuff Done and Not Done</h3>
+    <p>The app handles different users and keeps their to do items separate</p>
+    <p>Sometimes the row reordering is unstable and stops working when adding a new row. Probably a class getting mangled as the DOM is updated.</p>
+    <p>Some form validation would be good.</p>
+    <p>Clear the input fields after creating a new record.</p>
+    <p>The CRUD functions don't return anything back - the front end is trusting that the back end did what it was asked.</p>
+
+    <h3 class="mt-5">Thoughts &amp Learnings</h3>
+    <p>It was good to use Django without Wagtail. When I first set about building a Wagtail site in April, I was aware that it would have been a good idea to first get a degree of competency with Django.</p>
+    <p>The Django part was actually pretty straight forward. Javascript was a bit trickier with the row re-ordering.</p>
+    <p>As always, the first four hours are fun, the next four hours are fine, the last four hours are a slog.</p>
+
+    {% endblock %}
+
+</main>

@@ -1,0 +1,20 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<body class="text-center" data-gr-c-s-loaded="true">
+<main role="main" class="container mt-5">
+        {% if user.is_authenticated %}
+            <h1 class="h3 mb-3 font-weight-normal mt-5">Hi {{ user.username }}!</h1>
+            <a class="btn btn-lg btn-danger mt-5" href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <h1 class="h3 mb-3 font-weight-normal">You'll need to login first</h1>
+        <a class="btn btn-lg btn-success mt-5" href="{% url 'login' %}">Proceed to Login</a>
+    {% endif %}
+             <p class="mt-5 mb-3 text-muted">A Django Demo for UniLink</p>
+</main>
+</body>
+{% endblock %}
+

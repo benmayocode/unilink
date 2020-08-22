@@ -1,0 +1,27 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<body class="text-center">
+<main role="main" class="container mt-5">
+  <form class="form-signin" method="post">
+    {% csrf_token %}
+    <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    {{ form.as_p }}
+    </div>
+    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+  </form>
+
+  <br>
+  <p>Username 'ben'</p>
+  <p>Password 'unilink'</p>
+  <br>
+  <p>Username 'bill'</p>
+  <p>Password 'django_demo'</p>
+</main>
+</body>
+{% endblock %}
+
+
+
+
